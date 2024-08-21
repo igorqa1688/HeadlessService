@@ -32,6 +32,8 @@ def test_add_or_update_headless_chips_balance(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+
+    assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == ""
     assert response.nous_account_guid == nous_account_guid
@@ -48,6 +50,8 @@ def test_add_or_update_headless_gold_balance(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+
+    assert len(response.guid) == 36
     assert response.chips_balance == 0
     assert response.room_player_guid == ""
     assert response.nous_account_guid == nous_account_guid
@@ -64,6 +68,8 @@ def test_add_or_update_headless_room_player_guid(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+
+    assert len(response.guid) == 36
     assert response.chips_balance == 0
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
@@ -86,6 +92,8 @@ def test_add_or_update_headless_full_data(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+
+    assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
@@ -108,6 +116,8 @@ def test_add_or_update_headless_chips_balance_less_zero(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+
+    assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
@@ -130,6 +140,7 @@ def test_add_or_update_headless_gold_balance_less_zero(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+
     assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == room_player_guid
@@ -150,6 +161,7 @@ def test_get_club_headlesses(grpc_channel):
         created_headless = add_or_update_headless(club_guid, room_player_guid, gold_balance, chips_balance)
         request = headless_service_pb2.GetClubHeadlessesRequest(club_guid=created_headless.club_guid)
         response = stub.GetClubHeadlesses(request)
+
         assert len(response.headlesses[i].guid) == 36
         assert response.headlesses[i].club_guid == club_guid
         assert response.headlesses[i].room_player_guid == room_player_guid
@@ -216,6 +228,7 @@ def test_update_headless_chips_balance(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+    assert len(response.guid) == 36
     assert response.chips_balance == new_chips_balance
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
@@ -242,6 +255,7 @@ def test_update_headless_chips_balance_less_zero(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+    assert len(response.guid) == 36
     assert response.chips_balance == new_chips_balance
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
@@ -268,6 +282,7 @@ def test_update_headless_gold_balance(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+    assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
@@ -294,13 +309,14 @@ def test_update_headless_less_zero_gold_balance(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+    assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == room_player_guid
     assert response.nous_account_guid == nous_account_guid
     assert response.gold_balance == new_gold_balance
 
 
-# Изменен room_player_guid на отрицательное значение
+# Изменен room_player_guid
 def test_update_headless_room_player_guid(grpc_channel):
     stub = headless_service_pb2_grpc.HeadlessServiceStub(grpc_channel)
     nous_account_guid = generate_guid()
@@ -320,9 +336,37 @@ def test_update_headless_room_player_guid(grpc_channel):
         nous_account_guid=nous_account_guid)
 
     response = stub.AddOrUpdateHeadless(request)
+    assert len(response.guid) == 36
     assert response.chips_balance == chips_balance
     assert response.room_player_guid == new_room_player_guid
     assert response.nous_account_guid == nous_account_guid
+    assert response.gold_balance == gold_balance
+
+
+# Изменен nous_account_guid
+def test_update_headless_room_player_guid(grpc_channel):
+    stub = headless_service_pb2_grpc.HeadlessServiceStub(grpc_channel)
+    nous_account_guid = generate_guid()
+    room_player_guid = generate_guid()
+    new_nous_account_guid = generate_guid()
+    club_guid = generate_guid()
+    gold_balance = 40
+    chips_balance = 10001
+    # Создание headless для редактирования
+    created_headless = add_or_update_headless(club_guid, room_player_guid, gold_balance, chips_balance)
+
+    request = headless_service_pb2.AddOrUpdateHeadlessRequest(
+        club_guid=club_guid,
+        room_player_guid=room_player_guid,
+        gold_balance=gold_balance,
+        chips_balance=chips_balance,
+        nous_account_guid=new_nous_account_guid)
+
+    response = stub.AddOrUpdateHeadless(request)
+    assert len(response.guid) == 36
+    assert response.chips_balance == chips_balance
+    assert response.room_player_guid == room_player_guid
+    assert response.nous_account_guid == new_nous_account_guid
     assert response.gold_balance == gold_balance
 
 
