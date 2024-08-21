@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option csharp_namespace = "HeadlessServiceGrpc";
+
+package headless_service;
+
+import "google/protobuf/wrappers.proto";
+
+service HeadlessService {
+	rpc GetHeadless (GetHeadlessRequest) returns (HeadlessMessage);
+	rpc GetClubHeadlesses (GetClubHeadlessesRequest) returns (GetClubHeadlessesResponse);
+	rpc AddOrUpdateHeadless (AddOrUpdateHeadlessRequest) returns (HeadlessMessage);
+}
+
+message GetHeadlessRequest {
+	oneof headless {
+		string nous_account_guid = 1;
+		string room_player_guid = 2; 
+	}
+}
+
+message GetClubHeadlessesRequest {
+	string club_guid = 1;
+}
+
+message GetClubHeadlessesResponse {
+	repeated HeadlessMessage headlesses = 1;
+}
+
+message AddOrUpdateHeadlessRequest {
+	string nous_account_guid = 1;
+	optional string room_player_guid = 2;
+	optional string club_guid = 3;
+
+	optional int64 chips_balance = 5;
+	optional int64 gold_balance = 6;
+}
+
+message HeadlessMessage {
+	string guid = 1;
+	
+	string nous_account_guid = 2;
+	string room_player_guid = 3;
+	string club_guid = 4;
+
+	int64 chips_balance = 5;
+	int64 gold_balance = 6;
+}
