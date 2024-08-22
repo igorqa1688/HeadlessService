@@ -1,8 +1,6 @@
 import grpc
 import uuid
 import random
-import headless_service_pb2
-import headless_service_pb2_grpc
 from global_vars import server
 
 
