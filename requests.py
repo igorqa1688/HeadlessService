@@ -19,8 +19,7 @@ def add_or_update_headless(club_guid: str, room_player_guid: str, gold_balance: 
             response = stub.AddOrUpdateHeadless(request)
             return response
         except Exception as e:
-            print(e)
-            return "Error add_or_update_headless()"
+            return e
 
 
 def get_club_headlesses():
@@ -33,8 +32,7 @@ def get_club_headlesses():
             response = stub.GetClubHeadlesses(request)
             return response
         except Exception as e:
-            print(e)
-            return "Error add_or_update_headless()"
+            return e
 
 
 def get_headless():
@@ -43,13 +41,29 @@ def get_headless():
         stub = headless_service_pb2_grpc.HeadlessServiceStub(channel)
         request = headless_service_pb2.GetHeadlessRequest(
             nous_account_guid=club_headless.nous_account_guid,
-            room_player_guid=club_headless.room_player_guid)
+            room_player_guid=club_headless.room_player_guid,
+            club_guid=club_headless.club_guid
+        )
         try:
             response = stub.GetHeadless(request)
             return response
         except Exception as e:
-            print(e)
-            return "Error add_or_update_headless()"
+            return e
+
+
+def get_headless_by_one_param(nous_account_guid: None, room_player_guid: None, club_guid: None) -> str:
+    with grpc.insecure_channel(server) as channel:
+        stub = headless_service_pb2_grpc.HeadlessServiceStub(channel)
+        request = headless_service_pb2.GetHeadlessRequest(
+            nous_account_guid=nous_account_guid,
+            room_player_guid=room_player_guid,
+            club_guid=club_guid
+        )
+        try:
+            response = stub.GetHeadless(request)
+            return response
+        except Exception as e:
+            return e
 
 
 if __name__ == "__main__":

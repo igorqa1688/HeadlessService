@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16headless_service.proto\x12\x10headless_service\x1a\x1egoogle/protobuf/wrappers.proto\"Y\n\x12GetHeadlessRequest\x12\x1b\n\x11nous_account_guid\x18\x01 \x01(\tH\x00\x12\x1a\n\x10room_player_guid\x18\x02 \x01(\tH\x00\x42\n\n\x08headless\"-\n\x18GetClubHeadlessesRequest\x12\x11\n\tclub_guid\x18\x01 \x01(\t\"R\n\x19GetClubHeadlessesResponse\x12\x35\n\nheadlesses\x18\x01 \x03(\x0b\x32!.headless_service.HeadlessMessage\"\xeb\x01\n\x1a\x41\x64\x64OrUpdateHeadlessRequest\x12\x19\n\x11nous_account_guid\x18\x01 \x01(\t\x12\x1d\n\x10room_player_guid\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tclub_guid\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rchips_balance\x18\x05 \x01(\x03H\x02\x88\x01\x01\x12\x19\n\x0cgold_balance\x18\x06 \x01(\x03H\x03\x88\x01\x01\x42\x13\n\x11_room_player_guidB\x0c\n\n_club_guidB\x10\n\x0e_chips_balanceB\x0f\n\r_gold_balance\"\x94\x01\n\x0fHeadlessMessage\x12\x0c\n\x04guid\x18\x01 \x01(\t\x12\x19\n\x11nous_account_guid\x18\x02 \x01(\t\x12\x18\n\x10room_player_guid\x18\x03 \x01(\t\x12\x11\n\tclub_guid\x18\x04 \x01(\t\x12\x15\n\rchips_balance\x18\x05 \x01(\x03\x12\x14\n\x0cgold_balance\x18\x06 \x01(\x03\x32\xbf\x02\n\x0fHeadlessService\x12V\n\x0bGetHeadless\x12$.headless_service.GetHeadlessRequest\x1a!.headless_service.HeadlessMessage\x12l\n\x11GetClubHeadlesses\x12*.headless_service.GetClubHeadlessesRequest\x1a+.headless_service.GetClubHeadlessesResponse\x12\x66\n\x13\x41\x64\x64OrUpdateHeadless\x12,.headless_service.AddOrUpdateHeadlessRequest\x1a!.headless_service.HeadlessMessageB\x16\xaa\x02\x13HeadlessServiceGrpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16headless_service.proto\x12\x10headless_service\x1a\x1egoogle/protobuf/wrappers.proto\"n\n\x12GetHeadlessRequest\x12\x1b\n\x11nous_account_guid\x18\x01 \x01(\tH\x00\x12\x1a\n\x10room_player_guid\x18\x02 \x01(\tH\x00\x12\x13\n\tclub_guid\x18\x03 \x01(\tH\x00\x42\n\n\x08headless\"-\n\x18GetClubHeadlessesRequest\x12\x11\n\tclub_guid\x18\x01 \x01(\t\"R\n\x19GetClubHeadlessesResponse\x12\x35\n\nheadlesses\x18\x01 \x03(\x0b\x32!.headless_service.HeadlessMessage\"\xeb\x01\n\x1a\x41\x64\x64OrUpdateHeadlessRequest\x12\x19\n\x11nous_account_guid\x18\x01 \x01(\t\x12\x1d\n\x10room_player_guid\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tclub_guid\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rchips_balance\x18\x05 \x01(\x03H\x02\x88\x01\x01\x12\x19\n\x0cgold_balance\x18\x06 \x01(\x03H\x03\x88\x01\x01\x42\x13\n\x11_room_player_guidB\x0c\n\n_club_guidB\x10\n\x0e_chips_balanceB\x0f\n\r_gold_balance\"\x94\x01\n\x0fHeadlessMessage\x12\x0c\n\x04guid\x18\x01 \x01(\t\x12\x19\n\x11nous_account_guid\x18\x02 \x01(\t\x12\x18\n\x10room_player_guid\x18\x03 \x01(\t\x12\x11\n\tclub_guid\x18\x04 \x01(\t\x12\x15\n\rchips_balance\x18\x05 \x01(\x03\x12\x14\n\x0cgold_balance\x18\x06 \x01(\x03\x32\xbf\x02\n\x0fHeadlessService\x12V\n\x0bGetHeadless\x12$.headless_service.GetHeadlessRequest\x1a!.headless_service.HeadlessMessage\x12l\n\x11GetClubHeadlesses\x12*.headless_service.GetClubHeadlessesRequest\x1a+.headless_service.GetClubHeadlessesResponse\x12\x66\n\x13\x41\x64\x64OrUpdateHeadless\x12,.headless_service.AddOrUpdateHeadlessRequest\x1a!.headless_service.HeadlessMessageB\x16\xaa\x02\x13HeadlessServiceGrpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,15 +24,15 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\252\002\023HeadlessServiceGrpc'
   _globals['_GETHEADLESSREQUEST']._serialized_start=76
-  _globals['_GETHEADLESSREQUEST']._serialized_end=165
-  _globals['_GETCLUBHEADLESSESREQUEST']._serialized_start=167
-  _globals['_GETCLUBHEADLESSESREQUEST']._serialized_end=212
-  _globals['_GETCLUBHEADLESSESRESPONSE']._serialized_start=214
-  _globals['_GETCLUBHEADLESSESRESPONSE']._serialized_end=296
-  _globals['_ADDORUPDATEHEADLESSREQUEST']._serialized_start=299
-  _globals['_ADDORUPDATEHEADLESSREQUEST']._serialized_end=534
-  _globals['_HEADLESSMESSAGE']._serialized_start=537
-  _globals['_HEADLESSMESSAGE']._serialized_end=685
-  _globals['_HEADLESSSERVICE']._serialized_start=688
-  _globals['_HEADLESSSERVICE']._serialized_end=1007
+  _globals['_GETHEADLESSREQUEST']._serialized_end=186
+  _globals['_GETCLUBHEADLESSESREQUEST']._serialized_start=188
+  _globals['_GETCLUBHEADLESSESREQUEST']._serialized_end=233
+  _globals['_GETCLUBHEADLESSESRESPONSE']._serialized_start=235
+  _globals['_GETCLUBHEADLESSESRESPONSE']._serialized_end=317
+  _globals['_ADDORUPDATEHEADLESSREQUEST']._serialized_start=320
+  _globals['_ADDORUPDATEHEADLESSREQUEST']._serialized_end=555
+  _globals['_HEADLESSMESSAGE']._serialized_start=558
+  _globals['_HEADLESSMESSAGE']._serialized_end=706
+  _globals['_HEADLESSSERVICE']._serialized_start=709
+  _globals['_HEADLESSSERVICE']._serialized_end=1028
 # @@protoc_insertion_point(module_scope)

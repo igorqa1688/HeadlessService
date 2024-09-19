@@ -1,7 +1,7 @@
 import headless_service_pb2_grpc
 import headless_service_pb2
 from functions import grpc_channel, generate_guid, generate_random_balance
-from requests import add_or_update_headless
+from requests import add_or_update_headless, get_headless_by_one_param
 
 
 # Только club_guid
@@ -399,3 +399,87 @@ def test_update_headless_room_edit_all(grpc_channel):
     assert response.room_player_guid == new_room_player_guid
     assert response.nous_account_guid == new_nous_account_guid
     assert response.gold_balance == new_gold_balance
+
+
+# Получение headless по nous_account_guid
+def test_get_headless_by_nous_account_guid() -> None:
+    room_player_guid = generate_guid()
+    club_guid = generate_guid()
+    gold_balance = 40
+    chips_balance = 10001
+    # Создание headless
+    created_headless = add_or_update_headless(club_guid, room_player_guid, gold_balance, chips_balance)
+    nous_account_guid = created_headless.nous_account_guid
+    get_headless_by_nous_account_guid = get_headless_by_one_param(nous_account_guid, None, None)
+    assert len(get_headless_by_nous_account_guid.guid) == 36
+    assert get_headless_by_nous_account_guid.nous_account_guid == created_headless.nous_account_guid
+    assert get_headless_by_nous_account_guid.room_player_guid == room_player_guid
+    assert get_headless_by_nous_account_guid.club_guid == club_guid
+    assert get_headless_by_nous_account_guid.chips_balance == chips_balance
+    assert get_headless_by_nous_account_guid.gold_balance == gold_balance
+
+
+# Получение headless по room_player_guid
+def test_get_headless_by_room_player_guid() -> None:
+    room_player_guid = generate_guid()
+    club_guid = generate_guid()
+    gold_balance = 40
+    chips_balance = 10001
+    # Создание headless
+    created_headless = add_or_update_headless(club_guid, room_player_guid, gold_balance, chips_balance)
+    nous_account_guid = created_headless.nous_account_guid
+    get_headless_by_room_player_guid = get_headless_by_one_param(nous_account_guid, None, None)
+    assert len(get_headless_by_room_player_guid.guid) == 36
+    assert get_headless_by_room_player_guid.nous_account_guid == created_headless.nous_account_guid
+    assert get_headless_by_room_player_guid.room_player_guid == room_player_guid
+    assert get_headless_by_room_player_guid.club_guid == club_guid
+    assert get_headless_by_room_player_guid.chips_balance == chips_balance
+    assert get_headless_by_room_player_guid.gold_balance == gold_balance
+
+
+# Получение headless по club_guid
+def test_get_headless_by_club_guid() -> None:
+    room_player_guid = generate_guid()
+    club_guid = generate_guid()
+    gold_balance = 40
+    chips_balance = 10001
+    # Создание headless
+    created_headless = add_or_update_headless(club_guid, room_player_guid, gold_balance, chips_balance)
+    nous_account_guid = created_headless.nous_account_guid
+    get_headless_by_club_guid = get_headless_by_one_param(nous_account_guid, None, None)
+    assert len(get_headless_by_club_guid.guid) == 36
+    assert get_headless_by_club_guid.nous_account_guid == created_headless.nous_account_guid
+    assert get_headless_by_club_guid.room_player_guid == room_player_guid
+    assert get_headless_by_club_guid.club_guid == club_guid
+    assert get_headless_by_club_guid.chips_balance == chips_balance
+    assert get_headless_by_club_guid.gold_balance == gold_balance
+
+
+# Получение headless по несуществующему nous_account_guid
+def test_get_headless_by_no_exist_nous_account_guid() -> None:
+    result = get_headless_by_one_param(generate_guid(), None, None)
+    # Распаковка ответа
+    status_code = result.code()
+    grpc_details = result.details()
+    assert status_code.value[0] == 5
+    assert grpc_details == "No headless"
+
+
+# Получение headless по несуществующему room_player_guid
+def test_get_headless_by_no_exist_room_player_guid() -> None:
+    result = get_headless_by_one_param(None, generate_guid(), None)
+    # Распаковка ответа
+    status_code = result.code()
+    grpc_details = result.details()
+    assert status_code.value[0] == 5
+    assert grpc_details == "No headless"
+
+
+# Получение headless по несуществующему club_guid
+def test_get_headless_by_no_exist_club_guid() -> None:
+    result = get_headless_by_one_param(None, None, generate_guid())
+    # Распаковка ответа
+    status_code = result.code()
+    grpc_details = result.details()
+    assert status_code.value[0] == 5
+    assert grpc_details == "No headless"

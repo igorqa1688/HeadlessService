@@ -16,6 +16,7 @@ message GetHeadlessRequest {
 	oneof headless {
 		string nous_account_guid = 1;
 		string room_player_guid = 2; 
+		string club_guid = 3;
 	}
 }
 
