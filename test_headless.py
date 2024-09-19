@@ -425,7 +425,6 @@ def test_get_headless_by_room_player_guid() -> None:
     club_guid = generate_guid()
     gold_balance = 40
     chips_balance = 10001
-    # Создание headless
     created_headless = add_or_update_headless(club_guid, room_player_guid, gold_balance, chips_balance)
     nous_account_guid = created_headless.nous_account_guid
     get_headless_by_room_player_guid = get_headless_by_one_param(nous_account_guid, None, None)
